@@ -7,5 +7,30 @@
         mc:Ignorable="d"
         Title="简单补丁" Height="400" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="补丁选择" />
+        <Button Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="选择补丁……" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="程序目录" />
+        <TextBox Grid.Row="1" Grid.Column="1" />
+        <Button Grid.Row="1" Grid.Column="2" Content="浏览" />
+
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsReadOnly="True" />
+
+        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="测试模式" />
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Content="执行" />
     </Grid>
 </Window>
