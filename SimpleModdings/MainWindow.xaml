@@ -7,32 +7,27 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="简单补丁" Height="400" Width="400" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+        Title="简单补丁" Height="500" Width="400" WindowStartupLocation="CenterScreen">
 
-        <Label Grid.Row="0" Grid.Column="0" Content="补丁选择" />
-        <Button Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="选择补丁……" />
+    <Window.Resources>
+        <Style TargetType="HeaderedContentControl">
+            <Setter Property="IsTabStop" Value="False" />
+        </Style>
+    </Window.Resources>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="程序目录" />
-        <TextBox Grid.Row="1" Grid.Column="1" />
-        <Button Grid.Row="1" Grid.Column="2" Content="浏览" />
+    <DockPanel Margin="12">
+        <ui:SimpleStackPanel DockPanel.Dock="Top" Spacing="6">
+            <ui:AutoSuggestBox QueryIcon="Find" PlaceholderText="选择补丁……" />
 
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsReadOnly="True" />
+            <HeaderedContentControl Header="程序目录">
+                <ui:AutoSuggestBox QueryIcon="Folder" />
+            </HeaderedContentControl>
 
-        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="测试模式" />
+            <ui:ToggleSwitch HorizontalAlignment="Stretch">测试模式</ui:ToggleSwitch>
 
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Content="执行" />
-    </Grid>
+            <Button HorizontalAlignment="Stretch" Content="执行" />
+        </ui:SimpleStackPanel>
+
+        <TextBox Margin="0,6,0,0" IsReadOnly="True" />
+    </DockPanel>
 </Window>
