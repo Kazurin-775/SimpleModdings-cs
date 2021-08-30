@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Threading;
 using ModernWpf.Controls;
 using SimpleModder;
 
@@ -6,7 +8,8 @@ namespace SimpleModdings
 {
     public partial class MainWindow
     {
-        private List<string> _patchesList;
+        private readonly List<string> _patchesList;
+        private readonly DispatcherTimer _patchFilterTimer;
 
         public MainWindow()
         {
@@ -21,6 +24,31 @@ namespace SimpleModdings
                     CloseButtonText = "确定",
                 }.ShowAsync();
             }
+
+            _patchFilterTimer = new DispatcherTimer
+            {
+                Interval = System.TimeSpan.FromMilliseconds(200),
+            };
+            _patchFilterTimer.Tick += UpdatePatchSuggestions;
+        }
+
+        private IEnumerable<string> FilterPatch(string query)
+        {
+            query = query.ToLower();
+            return _patchesList.Where(x => x.ToLower().Contains(query));
+        }
+
+        private void OnPatchSearchChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
+                return;
+            _patchFilterTimer.Stop();
+            _patchFilterTimer.Start();
+        }
+
+        private void UpdatePatchSuggestions(object sender, object args)
+        {
+            PatchesBox.ItemsSource = FilterPatch(PatchesBox.Text);
         }
     }
 }

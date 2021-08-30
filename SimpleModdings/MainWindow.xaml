@@ -17,7 +17,11 @@
 
     <DockPanel Margin="12">
         <ui:SimpleStackPanel DockPanel.Dock="Top" Spacing="6">
-            <ui:AutoSuggestBox QueryIcon="Find" PlaceholderText="选择补丁……" />
+            <ui:AutoSuggestBox
+                x:Name="PatchesBox"
+                QueryIcon="Find"
+                PlaceholderText="选择补丁……"
+                TextChanged="OnPatchSearchChanged" />
 
             <HeaderedContentControl Header="程序目录">
                 <ui:AutoSuggestBox QueryIcon="Folder" />
