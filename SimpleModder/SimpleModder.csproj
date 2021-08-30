@@ -38,6 +38,11 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Patches\BinaryReplacePattern.cs" />
+        <Compile Include="Patches\BinarySearchPattern.cs" />
+        <Compile Include="Patches\BytesPatch.cs" />
+        <Compile Include="Patches\Patch.cs" />
+        <Compile Include="PatchScript.cs" />
         <Compile Include="PatchesList.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RawPatchScript.cs" />

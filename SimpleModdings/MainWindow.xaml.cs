@@ -60,7 +60,8 @@ namespace SimpleModdings
         private async void LoadPatchScript(string filename)
         {
             var path = Path.Combine("patches", filename);
-            var patchScript = await RawPatchScript.LoadFromFile(path);
+            var rawPatchScript = await RawPatchScript.LoadFromFile(path);
+            var patchScript = new PatchScript(rawPatchScript);
             Log($"已加载补丁：{patchScript.Name}");
         }
 
