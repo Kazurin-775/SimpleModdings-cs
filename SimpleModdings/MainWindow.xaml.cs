@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Threading;
 using ModernWpf.Controls;
@@ -32,6 +33,11 @@ namespace SimpleModdings
             _patchFilterTimer.Tick += UpdatePatchSuggestions;
         }
 
+        private void Log(string log)
+        {
+            LogTextBox.AppendText(log + "\n");
+        }
+
         private IEnumerable<string> FilterPatch(string query)
         {
             query = query.ToLower();
@@ -49,6 +55,31 @@ namespace SimpleModdings
         private void UpdatePatchSuggestions(object sender, object args)
         {
             PatchesBox.ItemsSource = FilterPatch(PatchesBox.Text);
+        }
+
+        private async void LoadPatchScript(string filename)
+        {
+            var path = Path.Combine("patches", filename);
+            var patchScript = await RawPatchScript.LoadFromFile(path);
+            Log($"已加载补丁：{patchScript.Name}");
+        }
+
+        private void OnPatchChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            LoadPatchScript(args.SelectedItem.ToString());
+        }
+
+        private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var enumerator = FilterPatch(args.QueryText).GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                var filename = enumerator.Current;
+                sender.Text = filename;
+                LoadPatchScript(filename);
+            }
+
+            enumerator.Dispose();
         }
     }
 }
