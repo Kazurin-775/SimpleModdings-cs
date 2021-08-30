@@ -83,5 +83,11 @@
     <ItemGroup>
       <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SimpleModder\SimpleModder.csproj">
+        <Project>{2101e9cd-e980-462d-8678-d758129c0052}</Project>
+        <Name>SimpleModder</Name>
+      </ProjectReference>
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
