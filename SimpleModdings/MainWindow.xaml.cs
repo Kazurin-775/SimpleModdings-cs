@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 using ModernWpf.Controls;
 using SimpleModder;
@@ -11,6 +13,7 @@ namespace SimpleModdings
     {
         private readonly List<string> _patchesList;
         private readonly DispatcherTimer _patchFilterTimer;
+        private PatchScript _patchScript;
 
         public MainWindow()
         {
@@ -31,11 +34,18 @@ namespace SimpleModdings
                 Interval = System.TimeSpan.FromMilliseconds(200),
             };
             _patchFilterTimer.Tick += UpdatePatchSuggestions;
+
+            Logger.OnMessage += BackgroundLog;
         }
 
         private void Log(string log)
         {
             LogTextBox.AppendText(log + "\n");
+        }
+
+        private void BackgroundLog(string log)
+        {
+            LogTextBox.Dispatcher.Invoke(() => Log(log));
         }
 
         private IEnumerable<string> FilterPatch(string query)
@@ -61,8 +71,9 @@ namespace SimpleModdings
         {
             var path = Path.Combine("patches", filename);
             var rawPatchScript = await RawPatchScript.LoadFromFile(path);
-            var patchScript = new PatchScript(rawPatchScript);
-            Log($"已加载补丁：{patchScript.Name}");
+            _patchScript = new PatchScript(rawPatchScript);
+            ProgramDir.Text = _patchScript.DefaultPath;
+            Log($"已加载补丁：{_patchScript.Name}");
         }
 
         private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -76,6 +87,16 @@ namespace SimpleModdings
             }
 
             enumerator.Dispose();
+        }
+
+        private async void OnExecute(object sender, RoutedEventArgs e)
+        {
+            if (_patchScript == null)
+                return;
+            ExecuteBtn.IsEnabled = false;
+            var programDir = ProgramDir.Text;
+            await Task.Run(() => _patchScript.DryRun(programDir));
+            ExecuteBtn.IsEnabled = true;
         }
     }
 }

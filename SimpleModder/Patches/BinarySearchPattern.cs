@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SimpleModder.Patches
 {
@@ -24,17 +25,40 @@ namespace SimpleModder.Patches
             }
         }
 
-        private PatternByte[] _data;
+        private PatternByte[] _pattern;
 
         public BinarySearchPattern(string pattern)
         {
             pattern = pattern.Replace(" ", "");
             Trace.Assert(pattern.Length % 2 == 0);
-            _data = new PatternByte[pattern.Length / 2];
+            _pattern = new PatternByte[pattern.Length / 2];
             for (int i = 0; i < pattern.Length / 2; i++)
             {
-                _data[i] = new PatternByte(pattern[i * 2], pattern[i * 2 + 1]);
+                _pattern[i] = new PatternByte(pattern[i * 2], pattern[i * 2 + 1]);
             }
+        }
+
+        public List<int> Matches(byte[] data)
+        {
+            var result = new List<int>();
+            // brute force
+            for (int i = 0; i < data.Length - _pattern.Length; i++)
+            {
+                bool match = true;
+                for (int j = 0; j < _pattern.Length; j++)
+                {
+                    if (data[i + j] != _pattern[j].Value && _pattern[j].Occupied)
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match)
+                    result.Add(i);
+            }
+
+            return result;
         }
     }
 }

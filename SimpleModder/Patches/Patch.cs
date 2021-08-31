@@ -6,6 +6,8 @@ namespace SimpleModder.Patches
     {
         public string Comments { get; protected set; }
 
+        public abstract byte[] RunOn(byte[] data);
+
         public static Patch Compile(RawPatch raw)
         {
             switch (raw.Kind)

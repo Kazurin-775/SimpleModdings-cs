@@ -24,16 +24,27 @@ namespace SimpleModder.Patches
             }
         }
 
-        private PatchedByte[] _data;
+        private PatchedByte[] _pattern;
 
         public BinaryReplacePattern(string pattern)
         {
             pattern = pattern.Replace(" ", "");
             Trace.Assert(pattern.Length % 2 == 0);
-            _data = new PatchedByte[pattern.Length / 2];
+            _pattern = new PatchedByte[pattern.Length / 2];
             for (int i = 0; i < pattern.Length / 2; i++)
             {
-                _data[i] = new PatchedByte(pattern[i * 2], pattern[i * 2 + 1]);
+                _pattern[i] = new PatchedByte(pattern[i * 2], pattern[i * 2 + 1]);
+            }
+        }
+
+        public void WriteAt(byte[] data, int offset)
+        {
+            for (int i = 0; i < _pattern.Length; i++)
+            {
+                if (_pattern[i].Occupied)
+                {
+                    data[offset + i] = _pattern[i].Value;
+                }
             }
         }
     }

@@ -25,12 +25,12 @@
                 QuerySubmitted="OnPatchSearchTriggered" />
 
             <HeaderedContentControl Header="程序目录">
-                <ui:AutoSuggestBox QueryIcon="Folder" />
+                <ui:AutoSuggestBox x:Name="ProgramDir" QueryIcon="Folder" />
             </HeaderedContentControl>
 
             <ui:ToggleSwitch HorizontalAlignment="Stretch">测试模式</ui:ToggleSwitch>
 
-            <Button HorizontalAlignment="Stretch" Content="执行" />
+            <Button x:Name="ExecuteBtn" HorizontalAlignment="Stretch" Content="执行" Click="OnExecute" />
         </ui:SimpleStackPanel>
 
         <TextBox x:Name="LogTextBox" Margin="0,6,0,0" IsReadOnly="True" />
