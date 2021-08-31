@@ -6,7 +6,7 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace SimpleModder
 {
-    public struct RawPatchScript
+    public class RawPatchScript
     {
         public string Name;
         public string DefaultPath;
@@ -29,11 +29,12 @@ namespace SimpleModder
         }
     }
 
-    public struct RawPatch
+    public class RawPatch
     {
         public string Kind;
         public string Original;
         public string Replaced;
+        public int Occurrences = 1;
         public string Comments;
     }
 }
