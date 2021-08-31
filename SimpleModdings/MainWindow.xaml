@@ -22,7 +22,6 @@
                 QueryIcon="Find"
                 PlaceholderText="选择补丁……"
                 TextChanged="OnPatchSearchChanged"
-                SuggestionChosen="OnPatchChosen"
                 QuerySubmitted="OnPatchSearchTriggered" />
 
             <HeaderedContentControl Header="程序目录">

@@ -65,11 +65,6 @@ namespace SimpleModdings
             Log($"已加载补丁：{patchScript.Name}");
         }
 
-        private void OnPatchChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            LoadPatchScript(args.SelectedItem.ToString());
-        }
-
         private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             var enumerator = FilterPatch(args.QueryText).GetEnumerator();
