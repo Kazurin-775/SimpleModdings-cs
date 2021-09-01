@@ -28,7 +28,7 @@
                 <ui:AutoSuggestBox x:Name="ProgramDir" QueryIcon="Folder" />
             </HeaderedContentControl>
 
-            <ui:ToggleSwitch HorizontalAlignment="Stretch">测试模式</ui:ToggleSwitch>
+            <ui:ToggleSwitch x:Name="TestMode" HorizontalAlignment="Stretch">测试模式</ui:ToggleSwitch>
 
             <Button x:Name="ExecuteBtn" HorizontalAlignment="Stretch" Content="执行" Click="OnExecute" />
         </ui:SimpleStackPanel>

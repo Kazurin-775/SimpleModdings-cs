@@ -29,6 +29,16 @@ namespace SimpleModdings
                 }.ShowAsync();
             }
 
+#pragma warning disable 0162
+            TestMode.IsOn = TestConfig.TestModeByDefault;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (TestConfig.PreloadPatch != null)
+            {
+                PatchesBox.Text = TestConfig.PreloadPatch;
+                LoadPatchScript(TestConfig.PreloadPatch);
+            }
+#pragma warning restore 0162
+
             _patchFilterTimer = new DispatcherTimer
             {
                 Interval = System.TimeSpan.FromMilliseconds(200),
