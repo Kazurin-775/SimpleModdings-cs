@@ -7,7 +7,7 @@ namespace SimpleModder.Patches
     {
         private readonly BinarySearchPattern _original;
         private readonly BinaryReplacePattern _replaced;
-        private readonly int _occurrences = 1;
+        private readonly int _occurrences;
 
         public BytesPatch(RawPatch raw)
         {
@@ -15,6 +15,7 @@ namespace SimpleModder.Patches
                 throw new ArgumentException();
             _original = new BinarySearchPattern(raw.Original);
             _replaced = new BinaryReplacePattern(raw.Replaced);
+            _occurrences = raw.Occurrences;
             Comments = raw.Comments;
         }
 
