@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using SimpleModder.Patches;
 
@@ -10,12 +9,12 @@ namespace SimpleModder
     public class PatchedFile
     {
         private readonly string _filename;
-        private readonly List<Patch> _patches;
+        private readonly PatchSet _patchset;
 
         public PatchedFile(string filename, List<RawPatch> raw)
         {
             _filename = filename;
-            _patches = raw.Select(Patch.Compile).ToList();
+            _patchset = new PatchSet(raw);
         }
 
         private async Task<byte[]> ReadFileContents(string programPath)
@@ -32,10 +31,7 @@ namespace SimpleModder
             Logger.Log($"处理文件：{_filename}");
             var data = await ReadFileContents(programPath);
 
-            foreach (var patch in _patches)
-            {
-                data = patch.RunOn(data);
-            }
+            _patchset.RunOn(data);
         }
 
         private void MakeBackupIfNeeded(string programPath)
@@ -59,10 +55,7 @@ namespace SimpleModder
             var data = await ReadFileContents(programPath);
             MakeBackupIfNeeded(programPath);
 
-            foreach (var patch in _patches)
-            {
-                data = patch.RunOn(data);
-            }
+            data = _patchset.RunOn(data);
 
             var stream = File.Open(Path.Combine(programPath, _filename), FileMode.Create, FileAccess.Write);
             await stream.WriteAsync(data, 0, data.Length);
