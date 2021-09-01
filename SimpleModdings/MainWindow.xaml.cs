@@ -105,7 +105,10 @@ namespace SimpleModdings
                 return;
             ExecuteBtn.IsEnabled = false;
             var programDir = ProgramDir.Text;
-            await Task.Run(() => _patchScript.DryRun(programDir));
+            if (TestMode.IsOn)
+                await Task.Run(() => _patchScript.DryRun(programDir));
+            else
+                await Task.Run(() => _patchScript.Run(programDir));
             ExecuteBtn.IsEnabled = true;
         }
     }

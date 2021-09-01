@@ -33,5 +33,16 @@ namespace SimpleModder
 
             Logger.Log("补丁执行完成");
         }
+
+        public async Task Run(string programPath)
+        {
+            Logger.Log("开始执行补丁");
+            foreach (var patchedFile in _patches)
+            {
+                await patchedFile.Value.RunOn(programPath);
+            }
+
+            Logger.Log("补丁执行完成");
+        }
     }
 }
