@@ -10,8 +10,8 @@ namespace SimpleModder
         public readonly string DefaultPath;
         public readonly string Comments;
 
-        private readonly Dictionary<string, PatchedFile> _patches = new Dictionary<string, PatchedFile>();
-        private readonly Dictionary<string, PatchSet> _patchsets = new Dictionary<string, PatchSet>();
+        private readonly Dictionary<string, PatchedFile> _patches = new();
+        private readonly Dictionary<string, PatchSet> _patchsets = new();
 
         public PatchScript(RawPatchScript raw)
         {
