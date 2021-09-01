@@ -89,6 +89,8 @@ namespace SimpleModdings
 
         private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (args.QueryText.Length == 0)
+                return;
             var enumerator = FilterPatch(args.QueryText).GetEnumerator();
             if (enumerator.MoveNext())
             {
