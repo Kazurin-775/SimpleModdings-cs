@@ -33,6 +33,7 @@
             <Button x:Name="ExecuteBtn" HorizontalAlignment="Stretch" Content="执行" Click="OnExecute" />
         </ui:SimpleStackPanel>
 
-        <TextBox x:Name="LogTextBox" Margin="0,6,0,0" IsReadOnly="True" />
+        <TextBox x:Name="LogTextBox" Margin="0,6,0,0" IsReadOnly="True"
+                 FontSize="12" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
     </DockPanel>
 </Window>
