@@ -19,9 +19,12 @@ namespace SimpleModder
             DefaultPath = raw.DefaultPath;
             Comments = raw.Comments;
 
-            foreach (var patchset in raw.Patchsets)
+            if (raw.Patchsets != null)
             {
-                _patchsets[patchset.Key] = new PatchSet(patchset.Value, _patchsets);
+                foreach (var patchset in raw.Patchsets)
+                {
+                    _patchsets[patchset.Key] = new PatchSet(patchset.Value, _patchsets);
+                }
             }
 
             foreach (var patch in raw.Patches)
