@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -105,10 +106,18 @@ namespace SimpleModdings
                 return;
             ExecuteBtn.IsEnabled = false;
             var programDir = ProgramDir.Text;
-            if (TestMode.IsOn)
-                await Task.Run(() => _patchScript.DryRun(programDir));
-            else
-                await Task.Run(() => _patchScript.Run(programDir));
+            try
+            {
+                if (TestMode.IsOn)
+                    await Task.Run(() => _patchScript.DryRun(programDir));
+                else
+                    await Task.Run(() => _patchScript.Run(programDir));
+            }
+            catch (Exception ex)
+            {
+                Log($"【错误】{ex}");
+            }
+
             ExecuteBtn.IsEnabled = true;
         }
     }
