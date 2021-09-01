@@ -11,10 +11,10 @@ namespace SimpleModder
         private readonly string _filename;
         private readonly PatchSet _patchset;
 
-        public PatchedFile(string filename, List<RawPatch> raw)
+        public PatchedFile(string filename, List<RawPatch> raw, Dictionary<string, PatchSet> patchsets)
         {
             _filename = filename;
-            _patchset = new PatchSet(raw);
+            _patchset = new PatchSet(raw, patchsets);
         }
 
         private async Task<byte[]> ReadFileContents(string programPath)

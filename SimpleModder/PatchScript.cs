@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SimpleModder.Patches;
 
 namespace SimpleModder
 {
@@ -10,6 +11,7 @@ namespace SimpleModder
         public readonly string Comments;
 
         private readonly Dictionary<string, PatchedFile> _patches = new Dictionary<string, PatchedFile>();
+        private readonly Dictionary<string, PatchSet> _patchsets = new Dictionary<string, PatchSet>();
 
         public PatchScript(RawPatchScript raw)
         {
@@ -17,9 +19,14 @@ namespace SimpleModder
             DefaultPath = raw.DefaultPath;
             Comments = raw.Comments;
 
+            foreach (var patchset in raw.Patchsets)
+            {
+                _patchsets[patchset.Key] = new PatchSet(patchset.Value, _patchsets);
+            }
+
             foreach (var patch in raw.Patches)
             {
-                _patches[patch.Key] = new PatchedFile(patch.Key, patch.Value);
+                _patches[patch.Key] = new PatchedFile(patch.Key, patch.Value, _patchsets);
             }
         }
 

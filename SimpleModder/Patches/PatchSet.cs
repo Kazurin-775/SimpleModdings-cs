@@ -7,9 +7,9 @@ namespace SimpleModder.Patches
     {
         private readonly List<Patch> _patches;
 
-        public PatchSet(List<RawPatch> raw)
+        public PatchSet(List<RawPatch> raw, Dictionary<string, PatchSet> patchsets)
         {
-            _patches = raw.Select(Patch.Compile).ToList();
+            _patches = raw.Select(patch => Patch.Compile(patch, patchsets)).ToList();
         }
 
         public override byte[] RunOn(byte[] data)

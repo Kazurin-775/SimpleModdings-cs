@@ -13,6 +13,7 @@ namespace SimpleModder
         public string Comments;
 
         public Dictionary<string, List<RawPatch>> Patches;
+        public Dictionary<string, List<RawPatch>> Patchsets;
 
         private static readonly IDeserializer Deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
@@ -36,5 +37,6 @@ namespace SimpleModder
         public string Replaced;
         public int Occurrences = 1;
         public string Comments;
+        public string Name;
     }
 }
