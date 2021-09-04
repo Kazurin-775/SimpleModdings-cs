@@ -81,10 +81,17 @@ namespace SimpleModdings
         private async void LoadPatchScript(string filename)
         {
             var path = Path.Combine("patches", filename);
-            var rawPatchScript = await RawPatchScript.LoadFromFile(path);
-            _patchScript = new PatchScript(rawPatchScript);
-            ProgramDir.Text = _patchScript.DefaultPath;
-            Log($"已加载补丁：{_patchScript.Name}");
+            try
+            {
+                var rawPatchScript = await RawPatchScript.LoadFromFile(path);
+                _patchScript = new PatchScript(rawPatchScript);
+                ProgramDir.Text = _patchScript.DefaultPath;
+                Log($"已加载补丁：{_patchScript.Name}");
+            }
+            catch (Exception ex)
+            {
+                Log($"【错误】无法加载补丁：{ex}");
+            }
         }
 
         private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
