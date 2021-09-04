@@ -15,6 +15,8 @@ namespace SimpleModder.Patches
             {
                 case "bytes":
                     return new BytesPatch(raw);
+                case "string":
+                    return new StringPatch(raw);
                 case "patchset":
                     return patchsets[raw.Name];
                 default:
