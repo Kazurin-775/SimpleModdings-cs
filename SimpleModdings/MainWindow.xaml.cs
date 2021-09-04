@@ -140,5 +140,15 @@ namespace SimpleModdings
 
             ExecuteBtn.IsEnabled = true;
         }
+
+        private void OnPatchesBoxFocus(object sender, RoutedEventArgs e)
+        {
+            _patchFilterTimer.Start();
+        }
+
+        private void OnPatchesBoxBlur(object sender, RoutedEventArgs e)
+        {
+            _patchFilterTimer.Stop();
+        }
     }
 }

@@ -21,6 +21,8 @@
                 x:Name="PatchesBox"
                 QueryIcon="Find"
                 PlaceholderText="选择补丁……"
+                GotFocus="OnPatchesBoxFocus"
+                LostFocus="OnPatchesBoxBlur"
                 TextChanged="OnPatchSearchChanged"
                 QuerySubmitted="OnPatchSearchTriggered" />
 
