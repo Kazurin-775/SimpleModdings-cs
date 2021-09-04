@@ -77,6 +77,7 @@ namespace SimpleModdings
 
         private void UpdatePatchSuggestions(object sender, object args)
         {
+            _patchFilterTimer.Stop();
             PatchesBox.ItemsSource = FilterPatch(PatchesBox.Text);
         }
 
