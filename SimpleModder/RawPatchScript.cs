@@ -14,6 +14,7 @@ namespace SimpleModder
 
         public Dictionary<string, List<RawPatch>> Patches;
         public Dictionary<string, List<RawPatch>> Patchsets;
+        public Dictionary<string, RawSearchCond> Search;
 
         private static readonly IDeserializer Deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
@@ -38,5 +39,10 @@ namespace SimpleModder
         public int Occurrences = 1;
         public string Comments;
         public string Name;
+    }
+
+    public class RawSearchCond
+    {
+        public string Regex;
     }
 }
