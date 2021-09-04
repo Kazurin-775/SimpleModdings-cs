@@ -11,7 +11,8 @@ namespace SimpleModder
         public readonly string Comments;
 
         private readonly Dictionary<string, PatchedFile> _patches = new();
-        private readonly Dictionary<string, PatchSet> _patchsets = new();
+        internal readonly Dictionary<string, PatchSet> Patchsets = new();
+        internal readonly Dictionary<string, FileSearchCond> Search = new();
 
         public PatchScript(RawPatchScript raw)
         {
@@ -23,13 +24,21 @@ namespace SimpleModder
             {
                 foreach (var patchset in raw.Patchsets)
                 {
-                    _patchsets[patchset.Key] = new PatchSet(patchset.Value, _patchsets);
+                    Patchsets[patchset.Key] = new PatchSet(patchset.Value, Patchsets);
+                }
+            }
+
+            if (raw.Search != null)
+            {
+                foreach (var search in raw.Search)
+                {
+                    Search[search.Key] = new FileSearchCond(search.Key, search.Value);
                 }
             }
 
             foreach (var patch in raw.Patches)
             {
-                _patches[patch.Key] = new PatchedFile(patch.Key, patch.Value, _patchsets);
+                _patches[patch.Key] = new PatchedFile(patch.Key, patch.Value, this);
             }
         }
 
