@@ -44,7 +44,7 @@ namespace SimpleModdings
 
             _patchFilterTimer = new DispatcherTimer
             {
-                Interval = System.TimeSpan.FromMilliseconds(200),
+                Interval = TimeSpan.FromMilliseconds(200),
             };
             _patchFilterTimer.Tick += UpdatePatchSuggestions;
 
