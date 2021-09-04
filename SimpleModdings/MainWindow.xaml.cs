@@ -99,6 +99,14 @@ namespace SimpleModdings
 
         private void OnPatchSearchTriggered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (args.ChosenSuggestion != null)
+            {
+                var filename = args.ChosenSuggestion as string;
+                sender.Text = filename;
+                LoadPatchScript(filename);
+                return;
+            }
+
             if (args.QueryText.Length == 0)
                 return;
             var enumerator = FilterPatch(args.QueryText).GetEnumerator();
