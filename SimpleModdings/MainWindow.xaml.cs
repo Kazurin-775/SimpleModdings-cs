@@ -30,14 +30,16 @@ namespace SimpleModdings
                 }.ShowAsync();
             }
 
-#pragma warning disable 0162
             TestMode.IsOn = TestConfig.TestModeByDefault;
+#pragma warning disable 0162
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable HeuristicUnreachableCode
             if (TestConfig.PreloadPatch != null)
             {
                 PatchesBox.Text = TestConfig.PreloadPatch;
                 LoadPatchScript(TestConfig.PreloadPatch);
             }
+            // ReSharper restore HeuristicUnreachableCode
 #pragma warning restore 0162
 
             _patchFilterTimer = new DispatcherTimer
