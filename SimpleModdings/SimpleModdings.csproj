@@ -9,6 +9,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="ModernWpfUI" Version="0.9.4" />
+        <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\SimpleModder\SimpleModder.csproj" />

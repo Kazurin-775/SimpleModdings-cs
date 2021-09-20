@@ -27,7 +27,8 @@
                 QuerySubmitted="OnPatchSearchTriggered" />
 
             <HeaderedContentControl Header="程序目录">
-                <ui:AutoSuggestBox x:Name="ProgramDir" QueryIcon="Folder" />
+                <ui:AutoSuggestBox x:Name="ProgramDir" QueryIcon="Folder"
+                                   QuerySubmitted="OnBrowseProgramDir" />
             </HeaderedContentControl>
 
             <ui:ToggleSwitch x:Name="TestMode" HorizontalAlignment="Stretch">测试模式</ui:ToggleSwitch>

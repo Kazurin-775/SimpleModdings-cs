@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using ModernWpf.Controls;
+using Ookii.Dialogs.Wpf;
 using SimpleModder;
 
 namespace SimpleModdings
@@ -149,6 +150,21 @@ namespace SimpleModdings
         private void OnPatchesBoxBlur(object sender, RoutedEventArgs e)
         {
             _patchFilterTimer.Stop();
+        }
+
+        private void OnBrowseProgramDir(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var dialog = new VistaFolderBrowserDialog
+            {
+                Description = "选择程序目录",
+                UseDescriptionForTitle = true,
+                SelectedPath = ProgramDir.Text,
+            };
+
+            if (dialog.ShowDialog(this) == true)
+            {
+                ProgramDir.Text = dialog.SelectedPath;
+            }
         }
     }
 }
