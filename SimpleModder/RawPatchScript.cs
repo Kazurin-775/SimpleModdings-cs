@@ -43,6 +43,7 @@ namespace SimpleModder
 
     public class RawSearchCond
     {
+        public string Dir;
         public string Regex;
     }
 }

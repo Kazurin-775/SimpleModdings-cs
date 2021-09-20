@@ -7,16 +7,23 @@ namespace SimpleModder
     public class FileSearchCond
     {
         private readonly string _filename;
+        private readonly string _dir;
         private readonly Regex _regex;
 
         public FileSearchCond(string filename, RawSearchCond raw)
         {
             _filename = filename;
-            _regex = new Regex(raw.Regex);
+            _dir = raw.Dir;
+            _regex = (raw.Regex != null ? new Regex(raw.Regex) : null);
         }
 
         public string Search(string programPath)
         {
+            if (_dir != null)
+                programPath = _dir;
+            if (_regex == null)
+                return Path.Combine(programPath, _filename);
+
             Logger.Log("  正在搜寻该文件");
             string found = null;
             foreach (var filePath in EnumerateFilesInDir(programPath))
